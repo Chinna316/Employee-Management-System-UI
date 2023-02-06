@@ -3,7 +3,7 @@ import EmployeeService from './Services/EmployeeService';
 
 const AddEmployee = () => {
 
-const [emoployee, setemoployee] = useState(
+const [employee, setemployee] = useState(
     {
         id:"",
         firstName:"",
@@ -15,7 +15,7 @@ const [emoployee, setemoployee] = useState(
 
 const handlechange = (e) =>{
     const value = e.target.value;
-    setemoployee({...employee,[e.target.name] : value})
+    setemployee({...employee,[e.target.name] : value})
 }
 
 const saveEmployee = (e) => {
@@ -57,7 +57,7 @@ const saveEmployee = (e) => {
         <input 
            type="text"
            name='lastNmae'
-           value={emoloyee.lastName}
+           value={employee.lastName}
            onChange={(e) => handlechange(e)}
            className='h-10 w-96 border mt-2 px-2 py-2'></input>
     </div>

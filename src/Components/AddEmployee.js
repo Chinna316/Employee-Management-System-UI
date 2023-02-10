@@ -56,7 +56,7 @@ const saveEmployee = (e) => {
         </label>
         <input 
            type="text"
-           name='lastNmae'
+           name='lastName'
            value={employee.lastName}
            onChange={(e) => handlechange(e)}
            className='h-10 w-96 border mt-2 px-2 py-2'></input>

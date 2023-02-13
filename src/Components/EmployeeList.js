@@ -1,8 +1,28 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
+import EmployeeService from './Services/EmployeeService'
 
 const EmployeeList = () => {
 
+  const [employee, setemployee] = useState(null)
+  const [loading, setloading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async() => {
+      setloading(true)
+      try{
+        const response = await EmployeeService.getEmployee();
+        setemployee(response.data);
+      }
+      catch (error){
+        console.log("Error")
+      }
+      setloading(false)
+    }
+    fetchData();
+   
+  }, [])
+  
   const navigate = useNavigate();
   return (
     <div className='container mx-auto my-8'>
@@ -26,7 +46,10 @@ const EmployeeList = () => {
                     <td className='text-left'> <div className='text-sm px-5'>chinna</div> </td>
                     <td className='text-left'> <div className='text-sm px-5'>Annepu</div> </td>
                     <td className='text-left '> <div className='text-sm px-5'>chinna@gmail.com</div> </td>
-                    <td className='text-left '> <div className='text-sm px-5'>#</div> </td>
+                    <td className='text-right'>
+                     <a href='#' className='px-5 text-blue-500 hover:text-blue-900'>Edit</a>
+                     <a href='#' className='px-5 text-blue-500 hover:text-blue-900'>Delete</a>
+                     </td>
                 </tr>
               </tbody>
            </table>  

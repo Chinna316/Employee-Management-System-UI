@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
+import Employee from './Employee'
 import EmployeeService from './Services/EmployeeService'
 
 const EmployeeList = () => {
@@ -41,18 +42,15 @@ const EmployeeList = () => {
                     <th className='text-right font-medium uppercase py-3 px-6 text-gray-20 tracking-wider'>Actions</th>
                 </tr>
               </thead>
+              {!loading && (
               <tbody className='bg-white'>
-                <tr>
-                    <td className='text-left'> <div className='text-sm px-5'>chinna</div> </td>
-                    <td className='text-left'> <div className='text-sm px-5'>Annepu</div> </td>
-                    <td className='text-left '> <div className='text-sm px-5'>chinna@gmail.com</div> </td>
-                    <td className='text-right'>
-                     <a href='#' className='px-5 text-blue-500 hover:text-blue-900'>Edit</a>
-                     <a href='#' className='px-5 text-blue-500 hover:text-blue-900'>Delete</a>
-                     </td>
-                </tr>
+                {employee.map((employee) => 
+                <Employee employee={employee} key={employee.id}></Employee>
+                )}
               </tbody>
-           </table>  
+              )
+              }
+            </table>
         </div>    
     </div>
   )

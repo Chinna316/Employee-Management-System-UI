@@ -26,6 +26,11 @@ const saveEmployee = (e) => {
     .catch((error) => {
         console.log(error);
     })
+    setemployee({ 
+        id:"",
+        firstName:"",
+        lastName:"",
+        email:"",})
 }
 
 

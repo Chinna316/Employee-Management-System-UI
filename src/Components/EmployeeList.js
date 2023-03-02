@@ -5,15 +5,15 @@ import EmployeeService from './Services/EmployeeService'
 
 const EmployeeList = () => {
 
-  const [employee, setemployee] = useState(null)
+  const [employees, setemployees] = useState(null)
   const [loading, setloading] = useState(true)
 
   useEffect(() => {
     const fetchData = async() => {
-      setloading(true)
+      setloading(true);
       try{
-        const response = await EmployeeService.getEmployee();
-        setemployee(response.data);
+        const response = await EmployeeService.getEmployees();
+        setemployees(response.data);
       }
       catch (error){
         console.log("Error")
@@ -23,6 +23,21 @@ const EmployeeList = () => {
     fetchData();
    
   }, [])
+
+
+  const deleteEmployee = (e, id) => {
+  e.preventDefault();
+  EmployeeService.deleteEmployee(id).then((response) => {
+  if(employees) {
+  setemployees((previousElement) => {
+    return previousElement.filter((employee) => employee.id !== id);
+  })
+}
+  })
+}
+
+  
+
   
   const navigate = useNavigate();
   return (
@@ -44,8 +59,8 @@ const EmployeeList = () => {
               </thead>
               {!loading && (
               <tbody className='bg-white'>
-                {employee.map((employee) => 
-                <Employee employee={employee} key={employee.id}></Employee>
+                {employees.map((employee) => 
+                <Employee employee={employee} deleteEmployee={deleteEmployee} key={employee.id}></Employee>
                 )}
               </tbody>
               )

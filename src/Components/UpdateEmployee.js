@@ -1,9 +1,10 @@
 import React,{useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import EmployeeService from './Services/EmployeeService'
 
 const UpdateEmployee = () => {
-    const[id] = useParams;
+    const navigate = useNavigate()
+    const {id} = useParams;
     const [employee, setemployee] = useState(    {
         id:id,
         firstName:"",
@@ -18,6 +19,10 @@ const UpdateEmployee = () => {
 
     const updateEmployee = (e) => {
     e.preventDefault()
+    EmployeeService.updateEmployee(employee, id).then((response) => {navigate('/EmployeeList')})
+    .catch((error) => {
+        console.log(error)
+    })
     }
 
     useEffect(() => {
@@ -34,17 +39,7 @@ const UpdateEmployee = () => {
     }, [])
 
 
-    const reset = (e) => {
-        e.preventDefault();
-        setemployee({ 
-        id:"",
-        firstName:"",
-        lastName:"",
-        email:"",})
-    }
     
-    
-
   return (
     <div className="flex max-w-2xl mx-auto shadow border-b-2">
     <div className="px-8 py-8">
@@ -92,7 +87,7 @@ const UpdateEmployee = () => {
 
 <div className='items-center justify-center h-14 w-full my-4 space-x-5 text-white'>
     <button onClick= {updateEmployee}className='bg-green-700 rounded hover:bg-green-400 px-2 mt-2 py-1'>Update</button>
-    <button onClick={reset}className='bg-red-700 rounded hover:bg-red-400 px-2 mt-2 py-1'>Cancel</button>
+    <button onClick={() => navigate('/EmployeeList')}className='bg-red-700 rounded hover:bg-red-400 px-2 mt-2 py-1'>Cancel</button>
 </div>
 
 </div>
